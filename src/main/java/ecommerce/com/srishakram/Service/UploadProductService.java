@@ -47,7 +47,7 @@ public class UploadProductService {
                 RequestBody.fromBytes(file.getBytes())
         );
 
-        return "https://issimg.s3.ap-south-1.amazonaws.com/" + key;
+        return "https://srishakramproducts .s3.eu-north-1.amazonaws.com/" + key;
     }
     public List<String> uploadMultipleFiles(List<MultipartFile> files) throws IOException {
         List<String> urls = new ArrayList<>();
@@ -64,7 +64,7 @@ public class UploadProductService {
                     RequestBody.fromBytes(file.getBytes())
             );
 
-            urls.add("https://issimg.s3.ap-south-1.amazonaws.com/" + key);
+            urls.add("https://srishakramproducts .s3.eu-north-1.amazonaws.com/" + key);
         }
         return urls;
     }
