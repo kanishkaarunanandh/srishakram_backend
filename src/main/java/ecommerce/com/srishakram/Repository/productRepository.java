@@ -1,6 +1,6 @@
 package ecommerce.com.srishakram.Repository;
 
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,20 +10,20 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface productRepository extends JpaRepository<products, Long> {
+public interface productRepository extends JpaRepository<Products, Long> {
 
     /* =========================
        SEARCH
        ========================= */
 
-    List<products> findByTitleContainingIgnoreCase(String title);
+    List<Products> findByTitleContainingIgnoreCase(String title);
 
     @Query("""
        SELECT p FROM products p
        WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :q, '%'))
           OR LOWER(p.category) LIKE LOWER(CONCAT('%', :q, '%'))
     """)
-    List<products> searchMainProducts(String q);
+    List<Products> searchMainProducts(String q);
 
     @Query("""
        SELECT p FROM products p
@@ -31,68 +31,68 @@ public interface productRepository extends JpaRepository<products, Long> {
           OR LOWER(p.category) LIKE LOWER(CONCAT('%', :q, '%'))
           OR LOWER(p.color) LIKE LOWER(CONCAT('%', :q, '%'))
     """)
-    List<products> searchEverywhere(String q);
+    List<Products> searchEverywhere(String q);
 
-    List<products> findTop10ByColorIgnoreCase(String q);
+    List<Products> findTop10ByColorIgnoreCase(String q);
 
-    List<products> findTop6ByOrderByIdDesc();
+    List<Products> findTop6ByOrderByIdDesc();
 
-    Optional<products> findById(Long id);
+    Optional<Products> findById(Long id);
 
     /* =========================
        CATEGORY + FILTER QUERIES
        ========================= */
 
-    Page<products> findByCategoryAndPriceBetween(
+    Page<Products> findByCategoryAndPriceBetween(
             String category, Double min, Double max, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndColorIn(
+    Page<Products> findByCategoryAndPriceBetweenAndColorIn(
             String category, Double min, Double max, List<String> color, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndInstockTrue(
+    Page<Products> findByCategoryAndPriceBetweenAndInstockTrue(
             String category, Double min, Double max, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndInstockTrueAndColorIn(
+    Page<Products> findByCategoryAndPriceBetweenAndInstockTrueAndColorIn(
             String category, Double min, Double max, List<String> color, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndNewArrivalTrue(
+    Page<Products> findByCategoryAndPriceBetweenAndNewArrivalTrue(
             String category, Double min, Double max, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndNewArrivalTrueAndColorIn(
+    Page<Products> findByCategoryAndPriceBetweenAndNewArrivalTrueAndColorIn(
             String category, Double min, Double max, List<String> color, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrue(
+    Page<Products> findByCategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrue(
             String category, Double min, Double max, Pageable pageable);
 
-    Page<products> findByCategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrueAndColorIn(
+    Page<Products> findByCategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrueAndColorIn(
             String category, Double min, Double max, List<String> color, Pageable pageable);
 
     /* =========================
        ALL CATEGORY (NO CATEGORY FILTER)
        ========================= */
 
-    Page<products> findByPriceBetween(
+    Page<Products> findByPriceBetween(
             Double min, Double max, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndColorIn(
+    Page<Products> findByPriceBetweenAndColorIn(
             Double min, Double max, List<String> color, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndInstockTrue(
+    Page<Products> findByPriceBetweenAndInstockTrue(
             Double min, Double max, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndInstockTrueAndColorIn(
+    Page<Products> findByPriceBetweenAndInstockTrueAndColorIn(
             Double min, Double max, List<String> color, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndNewArrivalTrue(
+    Page<Products> findByPriceBetweenAndNewArrivalTrue(
             Double min, Double max, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndNewArrivalTrueAndColorIn(
+    Page<Products> findByPriceBetweenAndNewArrivalTrueAndColorIn(
             Double min, Double max, List<String> color, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndInstockTrueAndNewArrivalTrue(
+    Page<Products> findByPriceBetweenAndInstockTrueAndNewArrivalTrue(
             Double min, Double max, Pageable pageable);
 
-    Page<products> findByPriceBetweenAndInstockTrueAndNewArrivalTrueAndColorIn(
+    Page<Products> findByPriceBetweenAndInstockTrueAndNewArrivalTrueAndColorIn(
             Double min, Double max, List<String> color, Pageable pageable);
 
 
@@ -131,7 +131,7 @@ public interface productRepository extends JpaRepository<products, Long> {
     @Query("SELECT DISTINCT p.color FROM products p WHERE p.category = :category AND p.color IS NOT NULL")
     List<String> findDistinctColorsByCategory(String category);
 
-    Page<products> findBySubcategoryAndPriceBetween(
+    Page<Products> findBySubcategoryAndPriceBetween(
             String subcategory, Double min, Double max, Pageable pageable);
 
     @Query("""
@@ -139,7 +139,7 @@ SELECT p FROM products p
 WHERE LOWER(p.category) = LOWER(:value)
    OR LOWER(p.subcategory) = LOWER(:value)
 """)
-    Page<products> findByCategoryOrSubcategory(String value, Pageable pageable);
+    Page<Products> findByCategoryOrSubcategory(String value, Pageable pageable);
     @Query("""
     SELECT p FROM products p
     WHERE LOWER(p.category) = LOWER(:category)
@@ -148,7 +148,7 @@ WHERE LOWER(p.category) = LOWER(:value)
       AND p.instock = true
       AND p.newArrival = true
 """)
-    Page<products> findByCategoryAndSubcategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrue(
+    Page<Products> findByCategoryAndSubcategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrue(
             @Param("category") String category,
             @Param("subcategory") String subcategory,
             @Param("minPrice") Double minPrice,
@@ -165,7 +165,7 @@ WHERE LOWER(p.category) = LOWER(:value)
       AND p.newArrival = true
       AND p.color IN (:color)
 """)
-    Page<products> findByCategoryAndSubcategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrueAndColorIn(
+    Page<Products> findByCategoryAndSubcategoryAndPriceBetweenAndInstockTrueAndNewArrivalTrueAndColorIn(
             @Param("category") String category,
             @Param("subcategory") String subcategory,
             @Param("minPrice") Double minPrice,
@@ -180,7 +180,7 @@ WHERE LOWER(p.category) = LOWER(:value)
       AND LOWER(p.subcategory) = LOWER(:subcategory)
       AND p.price BETWEEN :minPrice AND :maxPrice
 """)
-    Page<products> findByCategoryAndSubcategoryAndPriceBetween(
+    Page<Products> findByCategoryAndSubcategoryAndPriceBetween(
             @Param("category") String category,
             @Param("subcategory") String subcategory,
             @Param("minPrice") Double minPrice,
@@ -195,7 +195,7 @@ WHERE LOWER(p.category) = LOWER(:value)
       AND p.price BETWEEN :minPrice AND :maxPrice
       AND p.color IN (:color)
 """)
-    Page<products> findByCategoryAndSubcategoryAndPriceBetweenAndColorIn(
+    Page<Products> findByCategoryAndSubcategoryAndPriceBetweenAndColorIn(
             @Param("category") String category,
             @Param("subcategory") String subcategory,
             @Param("minPrice") Double minPrice,

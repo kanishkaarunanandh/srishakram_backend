@@ -3,7 +3,7 @@ package ecommerce.com.srishakram.Contoller;
 
 import ecommerce.com.srishakram.Repository.productRepository;
 import ecommerce.com.srishakram.Service.productService;
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class productController {
    private productRepository productRepository;
 
     @GetMapping("/recent")
-    public ResponseEntity<List<products>> getRecentProducts() {
+    public ResponseEntity<List<Products>> getRecentProducts() {
         return new ResponseEntity<>(
                 productserve.getRecentProducts(),
                 HttpStatus.OK
@@ -31,7 +31,7 @@ public class productController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<products> getProducts(@PathVariable Long id) {
+    public ResponseEntity<Products> getProducts(@PathVariable Long id) {
         return new ResponseEntity<>(
                 productserve.getProducts(id),
                 HttpStatus.OK
@@ -48,7 +48,7 @@ public class productController {
             @RequestParam(required = false) List<String> color,
             @RequestParam(required = false) String subcategory
     ) {
-        Page<products> pageData =
+        Page<Products> pageData =
                 productserve.getProductscategory(
                         category,
                         minPrice,
@@ -75,15 +75,15 @@ public class productController {
     }
 
     @GetMapping("getproduct/all")
-    public ResponseEntity<List<products>> showallproduct()
+    public ResponseEntity<List<Products>> showallproduct()
     {
         return new ResponseEntity<>(productserve.showallproduct(),HttpStatus.OK);
     }
 
     // Search by title
     @GetMapping("/search")
-    public ResponseEntity<List<products>> searchProductsByTitle(@RequestParam String title) {
-        List<products> result = productserve.searchByTitle(title);
+    public ResponseEntity<List<Products>> searchProductsByTitle(@RequestParam String title) {
+        List<Products> result = productserve.searchByTitle(title);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/getproduct/colors")
@@ -95,7 +95,7 @@ public class productController {
             @RequestParam String value,
             @RequestParam(defaultValue = "0") int page
     ) {
-        Page<products> pageData =
+        Page<Products> pageData =
                 productserve.searchByCategoryOrSubcategory(value, page);
 
         Map<String, Object> res = new HashMap<>();

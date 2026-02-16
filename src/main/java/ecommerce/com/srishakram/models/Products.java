@@ -2,17 +2,14 @@ package ecommerce.com.srishakram.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "home_products")
-public class products {
+public class Products {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,7 +6,7 @@ import ecommerce.com.srishakram.admin.DTO.CartRequest;
 import ecommerce.com.srishakram.admin.Repository.UsersRepository;
 import ecommerce.com.srishakram.models.Cart;
 import ecommerce.com.srishakram.models.Users;
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class CartService {
         Users user = userRepo.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        products product = productRepo.findById(req.getProductId())
+        Products product = productRepo.findById(req.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
         Cart cart = cartRepo

@@ -1,7 +1,7 @@
 package ecommerce.com.srishakram.admin.Service;
 
 import ecommerce.com.srishakram.admin.Repository.AdminProductRepository;
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +11,12 @@ public class AdminProductService {
     @Autowired
     private AdminProductRepository productrepo;
 
-    public products save(products values) {
+    public Products save(Products values) {
         return productrepo.save(values);
     }
 
     @Transactional
-    public products updateById(Long id, products productData) {
+    public Products updateById(Long id, Products productData) {
         // 🔥 DEBUG: Log incoming data
         if (productData.getImages() != null) {
             System.out.println("✅ Received images count: " + productData.getImages().size());
@@ -86,7 +86,7 @@ public class AdminProductService {
                     if (productData.getNewArrival() != null) {
                         existingProduct.setNewArrival(productData.getNewArrival());
                     }
-                    products savedProduct = productrepo.save(existingProduct);
+                    Products savedProduct = productrepo.save(existingProduct);
 
                     // 🔥 DEBUG: Log saved data
                     System.out.println("=== SAVE RESULT ===");

@@ -1,7 +1,7 @@
 package ecommerce.com.srishakram.admin.Controllers;
 
 import ecommerce.com.srishakram.admin.Service.AdminProductService;
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,12 @@ public class AdminProductController {
     private AdminProductService productserve;
 
     @PostMapping("/product")
-    public ResponseEntity<products> save(@RequestBody products body) {
+    public ResponseEntity<Products> save(@RequestBody Products body) {
         return new ResponseEntity<>(productserve.save(body), HttpStatus.CREATED);
     }
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<products> update(@PathVariable Long id, @RequestBody products body) {
+    public ResponseEntity<Products> update(@PathVariable Long id, @RequestBody Products body) {
         try {
             System.out.println("=== CONTROLLER RECEIVED UPDATE REQUEST ===");
             System.out.println("Product ID: " + id);
@@ -36,7 +36,7 @@ public class AdminProductController {
             }
             System.out.println("=========================================");
 
-            products updatedProduct = productserve.updateById(id, body);
+            Products updatedProduct = productserve.updateById(id, body);
 
             System.out.println("=== CONTROLLER RETURNING RESPONSE ===");
             if (updatedProduct.getImages() != null) {

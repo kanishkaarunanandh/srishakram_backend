@@ -1,7 +1,7 @@
 package ecommerce.com.srishakram.Service;
 
 import ecommerce.com.srishakram.Repository.productRepository;
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,15 +20,15 @@ public class productService {
        BASIC METHODS
        ========================= */
 
-    public products save(products values) {
+    public Products save(Products values) {
         return productrepo.save(values);
     }
 
-    public List<products> getRecentProducts() {
+    public List<Products> getRecentProducts() {
         return productrepo.findTop6ByOrderByIdDesc();
     }
 
-    public products getProducts(Long id) {
+    public Products getProducts(Long id) {
         return productrepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
@@ -37,7 +37,7 @@ public class productService {
        CATEGORY + FILTER LOGIC
        ========================= */
 
-    public Page<products> getProductscategory(
+    public Page<Products> getProductscategory(
             String category,
             Double minPrice,
             Double maxPrice,
@@ -197,14 +197,14 @@ public class productService {
        OTHER METHODS
        ========================= */
 
-    public List<products> showallproduct() {
+    public List<Products> showallproduct() {
         return productrepo.findAll();
     }
 
-    public List<products> searchByTitle(String title) {
+    public List<Products> searchByTitle(String title) {
         return productrepo.findByTitleContainingIgnoreCase(title);
     }
-    public Page<products> searchByCategoryOrSubcategory(String value, int page) {
+    public Page<Products> searchByCategoryOrSubcategory(String value, int page) {
         PageRequest pageable = PageRequest.of(page, 15, Sort.by("id").descending());
         return productrepo.findByCategoryOrSubcategory(value, pageable);
     }

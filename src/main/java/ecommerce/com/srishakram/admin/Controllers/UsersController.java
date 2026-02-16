@@ -7,9 +7,8 @@ import ecommerce.com.srishakram.admin.Repository.AdminOrdersRepository;
 import ecommerce.com.srishakram.admin.Repository.CustomerOrderRepository;
 import ecommerce.com.srishakram.admin.Repository.UsersRepository;
 import ecommerce.com.srishakram.admin.Service.UsersService;
-import ecommerce.com.srishakram.models.CustomerOrder;
 import ecommerce.com.srishakram.models.Users;
-import ecommerce.com.srishakram.models.contact;
+import ecommerce.com.srishakram.models.Contact;
 import ecommerce.com.srishakram.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -68,8 +67,8 @@ public class UsersController {
         String password = body.get("password");
 
         Optional<Users> userOptional = usersrepo.findByEmail(email);
-        Optional<contact> contactOptional = contactrepo.findByEmail(email);
-        Optional<contact> adminOptional = adminrepo.findByEmail(email);
+        Optional<Contact> contactOptional = contactrepo.findByEmail(email);
+        Optional<Contact> adminOptional = adminrepo.findByEmail(email);
 
 
         if (userOptional.isEmpty()) {
@@ -88,7 +87,7 @@ public class UsersController {
         }
 
         boolean customrole = adminOptional
-                .map(contact::isCustom)
+                .map(Contact::isCustom)
                 .orElse(false);
 
 

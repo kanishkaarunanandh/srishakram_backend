@@ -8,16 +8,11 @@ import lombok.Data;
 
 @Entity
 @Data
-public class contact {
-
+public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Id
     private Long id;
 
-    private String name;
-    private String email;
-    private Long phoneno;
-    private String msg;
-    private boolean custom = false;
+    private String role;
+    private String password;
 }

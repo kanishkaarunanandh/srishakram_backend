@@ -2,7 +2,7 @@ package ecommerce.com.srishakram.admin.Controllers;
 
 
 import ecommerce.com.srishakram.admin.Service.AdminOrdersService;
-import ecommerce.com.srishakram.models.contact;
+import ecommerce.com.srishakram.models.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class AdminOrdersController {
     private AdminOrdersService contactService;
 
     @GetMapping("/getorders")
-    public ResponseEntity<List<contact>> show()
+    public ResponseEntity<List<Contact>> show()
     {
         return new ResponseEntity<>(contactService.show(), HttpStatus.OK);
     }

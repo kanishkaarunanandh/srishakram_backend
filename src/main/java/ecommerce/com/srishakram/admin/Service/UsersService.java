@@ -3,7 +3,7 @@ package ecommerce.com.srishakram.admin.Service;
 import ecommerce.com.srishakram.admin.Repository.AdminOrdersRepository;
 import ecommerce.com.srishakram.admin.Repository.UsersRepository;
 import ecommerce.com.srishakram.models.Users;
-import ecommerce.com.srishakram.models.contact;
+import ecommerce.com.srishakram.models.Contact;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UsersService {
     public boolean toggleCustomByEmail(String email) {
 
         // 1️⃣ Contact table check
-        contact contact = adminorder.findByEmail(email)
+        Contact contact = adminorder.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
 
         // 2️⃣ Login table check

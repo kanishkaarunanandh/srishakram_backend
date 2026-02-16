@@ -3,7 +3,7 @@ package ecommerce.com.srishakram.admin.Service;
 import ecommerce.com.srishakram.Repository.productRepository;
 import ecommerce.com.srishakram.admin.DTO.ProductDTO;
 import ecommerce.com.srishakram.admin.DTO.SearchResponse;
-import ecommerce.com.srishakram.models.products;
+import ecommerce.com.srishakram.models.Products;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,11 @@ public class SearchService {
         SearchResponse response = new SearchResponse();
 
         // 1️⃣ Products matching title/category or color
-        List<products> matchedProducts = productRepo.searchMainProducts(q); // title/category
-        List<products> colorMatched = productRepo.searchEverywhere(q); // exact color match
+        List<Products> matchedProducts = productRepo.searchMainProducts(q); // title/category
+        List<Products> colorMatched = productRepo.searchEverywhere(q); // exact color match
 
         // Merge both lists (avoid duplicates)
-        List<products> combinedProducts = Stream.concat(matchedProducts.stream(), colorMatched.stream())
+        List<Products> combinedProducts = Stream.concat(matchedProducts.stream(), colorMatched.stream())
                 .distinct()
                 .limit(3)  // limit for UI
                 .toList();
@@ -57,9 +57,9 @@ public class SearchService {
                 combinedProducts.stream()
                         .filter(p -> p.getColor() != null && p.getCategory() != null)
                         .collect(Collectors.groupingBy(
-                                products::getCategory,
+                                Products::getCategory,
                                 Collectors.mapping(
-                                        products::getColor,
+                                        Products::getColor,
                                         Collectors.collectingAndThen(
                                                 Collectors.toCollection(LinkedHashSet::new),
                                                 ArrayList::new
